@@ -1,13 +1,13 @@
 import java.util.BitSet;
 
 class BitSet2D {
-   private final int r, c;
+   private final int rows, cols;
    private final BitSet bitset;
 
    public BitSet2D(int rows, int cols) {
-      r = rows;
-      c = cols;
-      bitset = new BitSet(r*c);
+      this.rows = rows;
+      this.cols = cols;
+      bitset = new BitSet(rows*cols);
    }
 
    public void set(int row, int col) {
@@ -18,7 +18,7 @@ class BitSet2D {
       bitset.clear(getIndex(row,col));
    }
 
-   public void get(int row, int col) {
+   public boolean get(int row, int col) {
       return bitset.get(getIndex(row,col));
    }
 

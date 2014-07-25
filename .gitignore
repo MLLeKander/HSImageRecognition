@@ -2,3 +2,5 @@
 */annotationOut/*
 */devout/*
 */badMinionOut/*
+*.swp
+*.class

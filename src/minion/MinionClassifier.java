@@ -8,14 +8,13 @@ import java.awt.Font;
 import java.awt.FontMetrics;
 import javax.imageio.*;
 
-class SimpleSample {
+class MinionClassifier {
    private final static byte BG = 0, FG1 = 1, FG2 = 2;
    private final static byte[] YELLOW = new byte[]{0,-1,-1};
    private final static byte[] GREEN = new byte[]{0,-1,0};
 
    private static boolean bound(int min, int x, int max) { return min <= x && max > x; }
 
-   //TODO
    private static BufferedImage boardToImage(byte[][] board) {
       BufferedImage i = new BufferedImage(board.length, board[0].length,BufferedImage.TYPE_INT_RGB);
       for (int x = 0; x < board.length; x++) {
@@ -68,11 +67,11 @@ class SimpleSample {
    public static Map<String, int[][]> minionToHash = null;
    public static int badMinionCount = 1;
 
-   public static void loadMinionToHash() throws Exception {
-      loadMinionToHash("minionBank");
+   public static void loadImageHash() throws Exception {
+      loadImageHash("minionBank");
    }
 
-   public static void loadMinionToHash(String minionDirectoryLocation) throws Exception {
+   public static void loadImageHash(String minionDirectoryLocation) throws Exception {
       File minionDirectory = new File(minionDirectoryLocation);
       minionToHash = new HashMap<String, int[][]>();
 
@@ -82,13 +81,13 @@ class SimpleSample {
          String fname = minionFile.getName();
          String minionName = fname.substring(0,fname.lastIndexOf("."));
 
-         minionToHash.put(minionName, MinionToHash.partitionAverage(minionImage));
+         minionToHash.put(minionName, ImageHash.partitionAverage(minionImage));
       }
    }
 
    public static void processImage(String fileName) throws Exception {
       if (minionToHash == null) {
-         loadMinionToHash();
+         loadImageHash();
       }
       System.out.print("Processing "+fileName);
 
@@ -114,12 +113,12 @@ class SimpleSample {
       for (RectRegion r : minionRegions) {
          BufferedImage subImage = src.getSubimage(r.minX, r.minY, r.maxX-r.minX, r.maxY-r.minY);
 
-         int[][] myHash = MinionToHash.partitionAverage(subImage);
+         int[][] myHash = ImageHash.partitionAverage(subImage);
          long closestDifference = Long.MAX_VALUE;
          String closestMinion = "NONE";
          for (String minionName : minionToHash.keySet()) {
             int[][] minionHash = minionToHash.get(minionName);
-            long difference = MinionToHash.colorDifference(myHash, minionHash);
+            long difference = ImageHash.colorDifference(myHash, minionHash);
             if (difference < closestDifference) {
                closestDifference = difference;
                closestMinion = minionName;

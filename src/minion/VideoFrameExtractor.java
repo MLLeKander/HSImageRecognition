@@ -16,7 +16,7 @@ import uk.co.caprica.vlcj.player.MediaPlayerEventAdapter;
 import uk.co.caprica.vlcj.player.headless.HeadlessMediaPlayer;
 import uk.co.caprica.vlcj.player.events.MediaPlayerEventType;
 
-public class Tutorial2A {
+public class VideoFrameExtractor {
    public static void main(final String[] args) throws Exception {
       System.setProperty("jna.nosys", "true");
       Native.loadLibrary(RuntimeUtil.getLibVlcLibraryName(), LibVlc.class);
@@ -51,7 +51,7 @@ public class Tutorial2A {
          public void snapshotTaken(MediaPlayer mp, String filename) {
             //System.out.println("Snapshot taken: "+filename);
             try {
-               SimpleSample.processImage(filename);
+               MinionClassifier.processImage(filename);
                mp.saveSnapshot(new File(String.format("snapOut/%s_%03d.png",basename,i)));
                i++;
             } catch (Exception blah) {
@@ -66,10 +66,5 @@ public class Tutorial2A {
       hmp.mute(true);
       Thread.sleep(200);
       hmp.saveSnapshot(new File("snapOut/"+basename+"_000.png"));
-      //Thread.sleep(100000);
-
-      //hmp.release();
-      //mpf.release();
-      //System.exit(0);
    }
 }

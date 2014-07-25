@@ -3,7 +3,7 @@ import java.io.*;
 import java.awt.image.BufferedImage;
 import javax.imageio.*;
 
-class MinionToHash {
+class ImageHash {
    public static int red(int c) {return c >> 16 & 0xFF;}
    public static int green(int c) {return c >> 8 & 0xFF;}
    public static int blue(int c) {return c & 0xFF;}
