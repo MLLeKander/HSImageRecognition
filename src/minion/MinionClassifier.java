@@ -191,8 +191,16 @@ class MinionClassifier {
    private static int green(int rgb) {return rgb >> 8 & 0xFF;}
    private static int blue(int rgb) {return rgb & 0xFF;}
 
+   private static boolean bound(int low, int d, int high) {return low <= d && d <= high;}
    public static boolean isBoardPixel(int pixel) {
-      return red(pixel) > 130 && green(pixel) > 100 && blue(pixel) < 150;
+      //return red(pixel) > 130 && green(pixel) > 100 && blue(pixel) < 150;
+      //(145-256,130-256,0-100)
+      //(220-256,0-256,100-256)
+      //(145-256,140-256,80-150)
+      int r = red(pixel), g = green(pixel), b = blue(pixel);
+      return r > 145 && g > 130 && b < 100 // Top border
+         || r > 220 && g > 100 // Lower border
+         || r > 145 && g > 140 && bound(80, b, 150); // Board
    }
 
    public static boolean isAttackPixel(int pixel) {

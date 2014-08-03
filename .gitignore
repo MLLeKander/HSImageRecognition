@@ -1,6 +1,6 @@
-*/snapOut/*
-*/annotationOut/*
-*/devout/*
-*/badMinionOut/*
+snapOut
+annotationOut
+devout
+badMinionOut
 *.swp
 *.class
